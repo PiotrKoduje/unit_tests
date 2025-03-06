@@ -15,9 +15,15 @@ const ResultBox = ({ from, to, amount }) => {
 
   const formattedAmount = useMemo(() => formatAmountInCurrency(amount, from), [amount, from]);
 
+  let wrongValue = '';
+  if(convertedAmount === '$0.00' || 
+    convertedAmount === 'PLN0.00' ||
+    Number.isNaN(convertedAmount)) 
+  wrongValue = 'Wrong value...'
+
   return (
-    <div className={styles.result}>
-      {formattedAmount} = {convertedAmount}
+    <div data-testid="resultBox" className={styles.result}>
+      {wrongValue ? wrongValue : `${formattedAmount} = ${convertedAmount}`}
     </div>
   );
 };
